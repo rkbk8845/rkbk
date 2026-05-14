@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rajkumar BK — IT Network Engineer | Japan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #070b12;
+      --surface: #0d1421;
+      --surface2: #131c2e;
+      --border: rgba(100,160,255,0.10);
+      --accent: #3b82f6;
+      --accent2: #06b6d4;
+      --accent3: #8b5cf6;
+      --text: #e2eaf8;
+      --muted: #7a90b8;
+      --highlight: #ffffff;
+      --glow: rgba(59,130,246,0.18);
+    }
+    [data-theme="light"] {
+      --bg: #f0f4fb;
+      --surface: #ffffff;
+      --surface2: #e8eef8;
+      --border: rgba(59,130,246,0.13);
+      --text: #1a2540;
+      --muted: #5a6e99;
+      --highlight: #0a1230;
+      --glow: rgba(59,130,246,0.10);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    /* ─── NOISE TEXTURE ─── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 0; opacity: 0.5;
+    }
+
+    /* ─── GRID BACKGROUND ─── */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background-image:
+        linear-gradient(rgba(59,130,246,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(59,130,246,0.03) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none; z-index: 0;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 68px;
+      background: rgba(7,11,18,0.82);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    [data-theme="light"] nav { background: rgba(240,244,251,0.85); }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--highlight);
+      text-decoration: none;
+      letter-spacing: -0.5px;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex; gap: 2rem; list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--accent); }
+
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+
+    .theme-toggle {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      width: 44px; height: 24px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.3s;
+    }
+    .theme-toggle::after {
+      content: '';
+      position: absolute;
+      top: 3px; left: 3px;
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      transition: transform 0.3s;
+    }
+    [data-theme="light"] .theme-toggle::after { transform: translateX(20px); }
+
+    /* ─── HERO ─── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 100px 5% 60px;
+      position: relative; z-index: 1;
+    }
+
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      pointer-events: none;
+    }
+    .blob1 { width: 500px; height: 500px; background: rgba(59,130,246,0.12); top: 5%; right: -100px; }
+    .blob2 { width: 350px; height: 350px; background: rgba(139,92,246,0.10); bottom: 10%; left: -80px; }
+    .blob3 { width: 250px; height: 250px; background: rgba(6,182,212,0.08); top: 40%; left: 30%; }
+
+    .hero-inner {
+      max-width: 1280px; margin: 0 auto; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      background: rgba(59,130,246,0.10);
+      border: 1px solid rgba(59,130,246,0.25);
+      border-radius: 50px;
+      padding: 0.35rem 1rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: 0.05em;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.6s ease both;
+    }
+    .badge-dot {
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--accent2);
+      animation: pulse 2s infinite;
+    }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      color: var(--highlight);
+      letter-spacing: -2px;
+      animation: fadeUp 0.6s 0.1s ease both;
+    }
+    .hero-name .accent-word { color: var(--accent); }
+
+    .hero-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.95rem;
+      color: var(--accent2);
+      margin: 1rem 0 1.5rem;
+      animation: fadeUp 0.6s 0.2s ease both;
+    }
+    .hero-title::before { content: '> '; opacity: 0.5; }
+
+    .hero-desc {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 520px;
+      animation: fadeUp 0.6s 0.3s ease both;
+    }
+
+    .hero-ctas {
+      display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap;
+      animation: fadeUp 0.6s 0.4s ease both;
+    }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.75rem 1.75rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s;
+      cursor: pointer; border: none;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      box-shadow: 0 0 24px rgba(59,130,246,0.3);
+    }
+    .btn-primary:hover { background: #2563eb; transform: translateY(-1px); box-shadow: 0 0 32px rgba(59,130,246,0.45); }
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-1px); }
+
+    /* ─── HERO CARD ─── */
+    .hero-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem;
+      position: relative;
+      animation: fadeUp 0.7s 0.2s ease both;
+      box-shadow: 0 0 60px rgba(59,130,246,0.06);
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: -1px;
+      border-radius: 21px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.2), transparent, rgba(139,92,246,0.15));
+      z-index: -1;
+    }
+
+    .card-avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent3));
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 1.5rem;
+      position: relative;
+    }
+    .card-avatar::after {
+      content: '🇯🇵';
+      position: absolute;
+      bottom: -2px; right: -2px;
+      font-size: 1.1rem;
+      background: var(--surface);
+      border-radius: 50%;
+      padding: 2px;
+    }
+
+    .card-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--highlight);
+      margin-bottom: 0.25rem;
+    }
+    .card-role {
+      font-size: 0.82rem;
+      color: var(--accent2);
+      font-family: 'JetBrains Mono', monospace;
+      margin-bottom: 1.5rem;
+    }
+
+    .card-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1rem; margin-bottom: 1.5rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      color: var(--highlight);
+    }
+    .stat-label { font-size: 0.72rem; color: var(--muted); margin-top: 0.2rem; }
+
+    .card-divider { height: 1px; background: var(--border); margin: 1.2rem 0; }
+
+    .card-skills {
+      display: flex; flex-wrap: wrap; gap: 0.5rem;
+    }
+    .skill-tag {
+      font-size: 0.73rem;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 0.3rem 0.7rem;
+      border-radius: 6px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    .location-pill {
+      display: inline-flex; align-items: center; gap: 0.4rem;
+      margin-top: 1.2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .location-pill .dot { color: var(--accent2); font-size: 1.1rem; }
+
+    /* ─── SECTION COMMONS ─── */
+    section { position: relative; z-index: 1; padding: 6rem 5%; }
+    .container { max-width: 1280px; margin: 0 auto; }
+
+    .section-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 800;
+      color: var(--highlight);
+      letter-spacing: -1px;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--muted);
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    .section-header { margin-bottom: 3.5rem; }
+
+    /* ─── TICKER ─── */
+    .ticker-wrap {
+      overflow: hidden;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 0;
+      z-index: 1; position: relative;
+    }
+    .ticker {
+      display: flex; gap: 3rem;
+      animation: ticker 20s linear infinite;
+      white-space: nowrap; width: max-content;
+    }
+    .ticker-item {
+      display: flex; align-items: center; gap: 0.75rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    .ticker-item span { color: var(--accent); }
+
+    /* ─── EXPERTISE ─── */
+    .expertise-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+    .expertise-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      transition: all 0.3s;
+      cursor: default;
+    }
+    .expertise-card:hover {
+      border-color: rgba(59,130,246,0.35);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(59,130,246,0.08);
+    }
+    .expertise-icon {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+    .expertise-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--highlight);
+      margin-bottom: 0.6rem;
+    }
+    .expertise-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+    .expertise-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .etag {
+      font-size: 0.7rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 4px;
+      background: rgba(59,130,246,0.08);
+      border: 1px solid rgba(59,130,246,0.18);
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── CERTIFICATIONS ─── */
+    .certs-section { background: var(--surface); }
+    .cert-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.2rem;
+    }
+    .cert-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+      transition: all 0.25s;
+    }
+    .cert-card:hover {
+      border-color: var(--accent2);
+      transform: translateY(-2px);
+    }
+    .cert-icon {
+      font-size: 1.6rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .cert-body {}
+    .cert-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: var(--highlight);
+      margin-bottom: 0.25rem;
+      line-height: 1.3;
+    }
+    .cert-issuer {
+      font-size: 0.76rem;
+      color: var(--accent2);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    /* ─── TECH STACK ─── */
+    .tech-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+    .tech-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.2rem 1rem;
+      text-align: center;
+      transition: all 0.25s;
+      cursor: default;
+    }
+    .tech-item:hover {
+      border-color: var(--accent);
+      background: var(--surface2);
+      transform: scale(1.04);
+    }
+    .tech-emoji { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
+    .tech-name {
+      font-size: 0.72rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--muted);
+    }
+
+    /* ─── BLOG ─── */
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.5rem;
+    }
+    .blog-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s;
+      cursor: pointer;
+    }
+    .blog-card:hover { transform: translateY(-5px); border-color: rgba(59,130,246,0.35); box-shadow: 0 16px 48px rgba(59,130,246,0.08); }
+    .blog-thumb {
+      height: 140px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+      position: relative;
+    }
+    .blog-thumb.net { background: linear-gradient(135deg, rgba(59,130,246,0.15), rgba(6,182,212,0.10)); }
+    .blog-thumb.sec { background: linear-gradient(135deg, rgba(239,68,68,0.12), rgba(139,92,246,0.10)); }
+    .blog-thumb.cloud { background: linear-gradient(135deg, rgba(6,182,212,0.12), rgba(59,130,246,0.10)); }
+    .blog-thumb.auto { background: linear-gradient(135deg, rgba(34,197,94,0.12), rgba(6,182,212,0.08)); }
+    .blog-thumb.wifi { background: linear-gradient(135deg, rgba(251,191,36,0.12), rgba(249,115,22,0.08)); }
+    .blog-thumb.mon { background: linear-gradient(135deg, rgba(139,92,246,0.15), rgba(59,130,246,0.10)); }
+
+    .blog-content { padding: 1.5rem; }
+    .blog-cat {
+      font-size: 0.7rem;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--accent);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .blog-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--highlight);
+      line-height: 1.4;
+      margin-bottom: 0.6rem;
+    }
+    .blog-excerpt { font-size: 0.83rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .blog-meta { display: flex; align-items: center; justify-content: space-between; font-size: 0.75rem; color: var(--muted); }
+    .blog-read { color: var(--accent); font-weight: 600; }
+
+    /* ─── TIMELINE (Experience) ─── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: '';
+      position: absolute; left: 0; top: 8px; bottom: 8px; width: 1px;
+      background: linear-gradient(to bottom, transparent, var(--accent), transparent);
+    }
+    .tl-item {
+      position: relative;
+      margin-bottom: 2.5rem;
+      padding-left: 1.5rem;
+    }
+    .tl-dot {
+      position: absolute; left: -2.35rem; top: 8px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 12px var(--accent);
+    }
+    .tl-date {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--accent2);
+      margin-bottom: 0.4rem;
+    }
+    .tl-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--highlight);
+      margin-bottom: 0.25rem;
+    }
+    .tl-company {
+      font-size: 0.88rem;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+    }
+    .tl-desc { font-size: 0.88rem; color: var(--muted); line-height: 1.7; }
+    .tl-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.75rem; }
+
+    /* ─── JAPAN SECTION ─── */
+    .japan-section {
+      background: linear-gradient(135deg, rgba(220,38,38,0.04), transparent, rgba(59,130,246,0.04));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .japan-inner {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;
+    }
+    .japan-list { list-style: none; }
+    .japan-list li {
+      display: flex; align-items: flex-start; gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+    .japan-list li:last-child { border: none; }
+    .japan-list .j-icon { font-size: 1.3rem; flex-shrink: 0; }
+    .japan-list strong { color: var(--highlight); display: block; margin-bottom: 0.2rem; }
+
+    /* ─── CTA BAND ─── */
+    .cta-band {
+      background: linear-gradient(135deg, rgba(59,130,246,0.08), rgba(139,92,246,0.06));
+      border: 1px solid rgba(59,130,246,0.15);
+      border-radius: 24px;
+      padding: 4rem 3rem;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      margin: 0 5% 5rem;
+    }
+    .cta-band::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.12), transparent 60%);
+      pointer-events: none;
+    }
+    .cta-band h2 {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.6rem, 3vw, 2.4rem);
+      font-weight: 800;
+      color: var(--highlight);
+      margin-bottom: 1rem;
+      letter-spacing: -0.5px;
+    }
+    .cta-band p { color: var(--muted); font-size: 1rem; margin-bottom: 2rem; }
+    .cta-links { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    .social-link {
+      display: inline-flex; align-items: center; gap: 0.5rem;
+      padding: 0.7rem 1.4rem;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.875rem;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+    .social-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 3rem 5%;
+      z-index: 1; position: relative;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      flex-wrap: wrap; gap: 1.5rem;
+    }
+    .footer-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--highlight);
+    }
+    .footer-logo span { color: var(--accent); }
+    .footer-copy { font-size: 0.82rem; color: var(--muted); }
+    .footer-nav { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-nav a { font-size: 0.82rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .footer-nav a:hover { color: var(--accent); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.4; }
+    }
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-card { display: none; }
+      .japan-inner { grid-template-columns: 1fr; gap: 2rem; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo">Rajkumar<span>.</span>BK</a>
+  <ul class="nav-links">
+    <li><a href="#expertise">Expertise</a></li>
+    <li><a href="#certs">Certifications</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+    <a href="#contact" class="btn btn-primary" style="padding:0.5rem 1.2rem;font-size:0.82rem;">Hire Me</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-blob blob1"></div>
+  <div class="hero-blob blob2"></div>
+  <div class="hero-blob blob3"></div>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        Available for Freelance &amp; Consulting
+      </div>
+      <h1 class="hero-name">Rajkumar<br><span class="accent-word">BK</span></h1>
+      <p class="hero-title">IT Network Engineer // Japan</p>
+      <p class="hero-desc">
+        Senior Network Engineer at a multinational corporation in Japan, specializing in enterprise networking, cloud infrastructure, and network security. Passionate about bridging technology gaps across global teams.
+      </p>
+      <div class="hero-ctas">
+        <a href="#blog" class="btn btn-primary">📖 Read My Blog</a>
+        <a href="#contact" class="btn btn-outline">💬 Get In Touch</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="card-avatar">RK</div>
+      <div class="card-name">Rajkumar BK</div>
+      <div class="card-role">Senior IT Network Engineer</div>
+      <div class="card-stats">
+        <div class="stat-item">
+          <div class="stat-num">8+</div>
+          <div class="stat-label">Years Exp</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">50+</div>
+          <div class="stat-label">Projects</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12+</div>
+          <div class="stat-label">Certs</div>
+        </div>
+      </div>
+      <div class="card-divider"></div>
+      <div class="card-skills">
+        <span class="skill-tag">Cisco</span>
+        <span class="skill-tag">Juniper</span>
+        <span class="skill-tag">BGP</span>
+        <span class="skill-tag">OSPF</span>
+        <span class="skill-tag">SD-WAN</span>
+        <span class="skill-tag">AWS</span>
+        <span class="skill-tag">Azure</span>
+        <span class="skill-tag">Python</span>
+        <span class="skill-tag">Ansible</span>
+      </div>
+      <div class="location-pill">
+        <span class="dot">📍</span>
+        Based in Tokyo, Japan 🇯🇵
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span class="ticker-item">🌐 <span>Enterprise Networking</span></span>
+    <span class="ticker-item">☁️ <span>Cloud Infrastructure</span></span>
+    <span class="ticker-item">🔒 <span>Network Security</span></span>
+    <span class="ticker-item">🤖 <span>Network Automation</span></span>
+    <span class="ticker-item">📡 <span>SD-WAN</span></span>
+    <span class="ticker-item">🏢 <span>Multinational Enterprise</span></span>
+    <span class="ticker-item">🇯🇵 <span>Tokyo, Japan</span></span>
+    <span class="ticker-item">⚡ <span>BGP / OSPF / MPLS</span></span>
+    <span class="ticker-item">🌐 <span>Enterprise Networking</span></span>
+    <span class="ticker-item">☁️ <span>Cloud Infrastructure</span></span>
+    <span class="ticker-item">🔒 <span>Network Security</span></span>
+    <span class="ticker-item">🤖 <span>Network Automation</span></span>
+    <span class="ticker-item">📡 <span>SD-WAN</span></span>
+    <span class="ticker-item">🏢 <span>Multinational Enterprise</span></span>
+    <span class="ticker-item">🇯🇵 <span>Tokyo, Japan</span></span>
+    <span class="ticker-item">⚡ <span>BGP / OSPF / MPLS</span></span>
+  </div>
+</div>
+
+<!-- EXPERTISE -->
+<section id="expertise">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">// What I Do</p>
+      <h2 class="section-title">Areas of Expertise</h2>
+      <p class="section-desc">Deep technical knowledge across enterprise networking, cloud connectivity, and modern network operations.</p>
+    </div>
+    <div class="expertise-grid">
+      <div class="expertise-card reveal">
+        <span class="expertise-icon">🌐</span>
+        <div class="expertise-title">Enterprise Networking</div>
+        <p class="expertise-desc">Design and manage complex enterprise networks using Cisco and Juniper platforms. Expert in routing protocols and multi-site WAN deployments.</p>
+        <div class="expertise-tags">
+          <span class="etag">BGP</span><span class="etag">OSPF</span><span class="etag">MPLS</span><span class="etag">VRF</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal">
+        <span class="expertise-icon">☁️</span>
+        <div class="expertise-title">Cloud Networking</div>
+        <p class="expertise-desc">Architect hybrid cloud connectivity between on-premises datacenters and AWS, Azure, and GCP using VPN, Direct Connect, and ExpressRoute.</p>
+        <div class="expertise-tags">
+          <span class="etag">AWS VPC</span><span class="etag">Azure vNet</span><span class="etag">Direct Connect</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal">
+        <span class="expertise-icon">🔒</span>
+        <div class="expertise-title">Network Security</div>
+        <p class="expertise-desc">Implement zero-trust network architecture, firewall policy management, IDS/IPS, and secure remote access solutions at enterprise scale.</p>
+        <div class="expertise-tags">
+          <span class="etag">Zero Trust</span><span class="etag">Palo Alto</span><span class="etag">Fortinet</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal">
+        <span class="expertise-icon">🤖</span>
+        <div class="expertise-title">Network Automation</div>
+        <p class="expertise-desc">Automate network provisioning and configuration management using Python, Ansible, and NetDevOps practices to eliminate manual errors.</p>
+        <div class="expertise-tags">
+          <span class="etag">Python</span><span class="etag">Ansible</span><span class="etag">Terraform</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal">
+        <span class="expertise-icon">📡</span>
+        <div class="expertise-title">SD-WAN</div>
+        <p class="expertise-desc">Deploy and manage SD-WAN solutions for global branch connectivity, optimizing application performance and reducing WAN costs.</p>
+        <div class="expertise-tags">
+          <span class="etag">Cisco Viptela</span><span class="etag">VMware SD-WAN</span><span class="etag">Meraki</span>
+        </div>
+      </div>
+      <div class="expertise-card reveal">
+        <span class="expertise-icon">📊</span>
+        <div class="expertise-title">Network Monitoring</div>
+        <p class="expertise-desc">Build comprehensive observability stacks for network infrastructure using SNMP, streaming telemetry, and modern dashboards.</p>
+        <div class="expertise-tags">
+          <span class="etag">Grafana</span><span class="etag">Prometheus</span><span class="etag">Splunk</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CERTIFICATIONS -->
+<section id="certs" class="certs-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">// Credentials</p>
+      <h2 class="section-title">Certifications</h2>
+      <p class="section-desc">Industry-recognized credentials validating deep technical expertise across networking and cloud platforms.</p>
+    </div>
+    <div class="cert-grid">
+      <div class="cert-card reveal">
+        <span class="cert-icon">🏆</span>
+        <div class="cert-body">
+          <div class="cert-name">CCNP Enterprise</div>
+          <div class="cert-issuer">Cisco Systems</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <span class="cert-icon">🌟</span>
+        <div class="cert-body">
+          <div class="cert-name">AWS Solutions Architect</div>
+          <div class="cert-issuer">Amazon Web Services</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <span class="cert-icon">⚡</span>
+        <div class="cert-body">
+          <div class="cert-name">Azure Network Engineer</div>
+          <div class="cert-issuer">Microsoft Azure</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <span class="cert-icon">🔐</span>
+        <div class="cert-body">
+          <div class="cert-name">CompTIA Security+</div>
+          <div class="cert-issuer">CompTIA</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <span class="cert-icon">🛡️</span>
+        <div class="cert-body">
+          <div class="cert-name">JNCIA-Junos</div>
+          <div class="cert-issuer">Juniper Networks</div>
+        </div>
+      </div>
+      <div class="cert-card reveal">
+        <span class="cert-icon">🎯</span>
+        <div class="cert-body">
+          <div class="cert-name">PCNSE</div>
+          <div class="cert-issuer">Palo Alto Networks</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="tech">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">// Tools &amp; Technologies</p>
+      <h2 class="section-title">Tech Stack</h2>
+      <p class="section-desc">The technologies and platforms I work with daily in enterprise environments.</p>
+    </div>
+    <div class="tech-grid">
+      <div class="tech-item reveal"><span class="tech-emoji">🔵</span><div class="tech-name">Cisco IOS</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">🟠</span><div class="tech-name">Juniper JunOS</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">☁️</span><div class="tech-name">AWS</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">🔷</span><div class="tech-name">Azure</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">🐍</span><div class="tech-name">Python</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">⚙️</span><div class="tech-name">Ansible</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">🏗️</span><div class="tech-name">Terraform</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">🔥</span><div class="tech-name">Palo Alto</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">🛡️</span><div class="tech-name">Fortinet</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">📡</span><div class="tech-name">Meraki</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">📊</span><div class="tech-name">Grafana</div></div>
+      <div class="tech-item reveal"><span class="tech-emoji">🔍</span><div class="tech-name">Wireshark</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience" class="certs-section">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">// Career Journey</p>
+      <h2 class="section-title">Work Experience</h2>
+      <p class="section-desc">A decade of building and securing enterprise networks across Asia-Pacific regions.</p>
+    </div>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2022 — Present</div>
+        <div class="tl-role">Senior IT Network Engineer</div>
+        <div class="tl-company">Multinational Corporation — Tokyo, Japan 🇯🇵</div>
+        <div class="tl-desc">
+          Leading enterprise network design and operations for APAC region. Responsible for SD-WAN rollout across 30+ branch offices, hybrid cloud connectivity, and driving network automation initiatives using Python and Ansible. Working in a multicultural environment with teams across Japan, India, and Southeast Asia.
+        </div>
+        <div class="tl-tags">
+          <span class="etag">SD-WAN</span><span class="etag">AWS</span><span class="etag">Azure</span><span class="etag">Ansible</span><span class="etag">MPLS</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2019 — 2022</div>
+        <div class="tl-role">Network Engineer</div>
+        <div class="tl-company">IT Services Company — Bengaluru, India</div>
+        <div class="tl-desc">
+          Managed datacenter network infrastructure for enterprise clients. Deployed and maintained BGP/OSPF routing, implemented network segmentation policies, and led a team of 4 junior engineers. Reduced network incidents by 40% through proactive monitoring and automation.
+        </div>
+        <div class="tl-tags">
+          <span class="etag">BGP</span><span class="etag">OSPF</span><span class="etag">Datacenter</span><span class="etag">Python</span>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-dot"></div>
+        <div class="tl-date">2016 — 2019</div>
+        <div class="tl-role">Junior Network Engineer</div>
+        <div class="tl-company">Telecom Provider — India</div>
+        <div class="tl-desc">
+          Started career supporting ISP backbone infrastructure. Gained hands-on experience with Cisco and Juniper routing platforms, troubleshooting BGP peering issues, and participating in large-scale network migrations.
+        </div>
+        <div class="tl-tags">
+          <span class="etag">Cisco</span><span class="etag">Juniper</span><span class="etag">BGP</span><span class="etag">ISP</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <div class="section-header reveal">
+      <p class="section-label">// Knowledge Hub</p>
+      <h2 class="section-title">Latest Articles</h2>
+      <p class="section-desc">Step-by-step guides, deep dives, and practical insights for network engineers worldwide.</p>
+    </div>
+    <div class="blog-grid">
+      <div class="blog-card reveal">
+        <div class="blog-thumb net">🌐</div>
+        <div class="blog-content">
+          <div class="blog-cat">BGP / Routing</div>
+          <div class="blog-title">BGP Route Filtering Best Practices for Enterprise Networks</div>
+          <div class="blog-excerpt">Learn how to configure BGP prefix lists, route maps, and communities to build a robust and secure routing policy.</div>
+          <div class="blog-meta"><span>8 min read</span><span class="blog-read">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-thumb cloud">☁️</div>
+        <div class="blog-content">
+          <div class="blog-cat">Cloud Networking</div>
+          <div class="blog-title">Connecting On-Premises to AWS with Direct Connect and BGP</div>
+          <div class="blog-excerpt">A complete walkthrough for provisioning AWS Direct Connect, configuring virtual interfaces, and establishing BGP sessions.</div>
+          <div class="blog-meta"><span>12 min read</span><span class="blog-read">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-thumb auto">🤖</div>
+        <div class="blog-content">
+          <div class="blog-cat">Network Automation</div>
+          <div class="blog-title">Automating Cisco Configuration Backups with Python &amp; Netmiko</div>
+          <div class="blog-excerpt">Build a Python script that automatically backs up configs from hundreds of Cisco devices and stores them in Git.</div>
+          <div class="blog-meta"><span>10 min read</span><span class="blog-read">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-thumb sec">🔒</div>
+        <div class="blog-content">
+          <div class="blog-cat">Security</div>
+          <div class="blog-title">Implementing Zero Trust Network Access in Enterprise Environments</div>
+          <div class="blog-excerpt">A practical guide to Zero Trust principles, microsegmentation, and identity-aware network policies for large organizations.</div>
+          <div class="blog-meta"><span>15 min read</span><span class="blog-read">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-thumb wifi">📡</div>
+        <div class="blog-content">
+          <div class="blog-cat">SD-WAN</div>
+          <div class="blog-title">Cisco Viptela SD-WAN: Full Deployment Guide for Branch Offices</div>
+          <div class="blog-excerpt">From initial vManage setup to policy deployment — a complete guide for rolling out Cisco SD-WAN at scale.</div>
+          <div class="blog-meta"><span>20 min read</span><span class="blog-read">Read →</span></div>
+        </div>
+      </div>
+      <div class="blog-card reveal">
+        <div class="blog-thumb mon">📊</div>
+        <div class="blog-content">
+          <div class="blog-cat">Monitoring</div>
+          <div class="blog-title">Building a Network Observability Stack with Grafana &amp; Prometheus</div>
+          <div class="blog-excerpt">Set up real-time network telemetry collection, build beautiful dashboards, and configure intelligent alerting.</div>
+          <div class="blog-meta"><span>14 min read</span><span class="blog-read">Read →</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JAPAN SECTION -->
+<section class="japan-section">
+  <div class="container">
+    <div class="japan-inner">
+      <div class="reveal">
+        <p class="section-label">// Life in Japan</p>
+        <h2 class="section-title">Working in Japan 🇯🇵</h2>
+        <p class="section-desc" style="margin-bottom:2rem;">
+          Navigating the unique world of enterprise IT in Japan — where precision, team harmony, and attention to detail are deeply valued in every network design.
+        </p>
+        <a href="#blog" class="btn btn-outline">Read My Japan IT Insights →</a>
+      </div>
+      <ul class="japan-list reveal">
+        <li>
+          <span class="j-icon">🏢</span>
+          <div><strong>Multinational Environment</strong> Collaborating with global teams across APAC, balancing Japanese work culture with international engineering standards.</div>
+        </li>
+        <li>
+          <span class="j-icon">🌐</span>
+          <div><strong>APAC Network Operations</strong> Managing network infrastructure spanning data centers in Tokyo, Singapore, and across the Asia-Pacific region.</div>
+        </li>
+        <li>
+          <span class="j-icon">🤝</span>
+          <div><strong>Cross-Cultural Teamwork</strong> Bridging communication gaps between Japanese IT teams and global stakeholders for smooth project delivery.</div>
+        </li>
+        <li>
+          <span class="j-icon">📚</span>
+          <div><strong>Continuous Learning</strong> Pursuing JLPT certification while staying current with the latest networking technologies and cloud trends.</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<div id="contact">
+  <div class="cta-band reveal" style="z-index:1;position:relative;">
+    <h2>Let's Build Something Together</h2>
+    <p>Whether you're looking for networking expertise, cloud connectivity consulting, or a deep-dive technical article — I'm here to help.</p>
+    <div class="cta-links">
+      <a href="mailto:rajkumar.bk@email.com" class="social-link">✉️ Email Me</a>
+      <a href="https://linkedin.com" class="social-link" target="_blank">🔗 LinkedIn</a>
+      <a href="https://twitter.com" class="social-link" target="_blank">🐦 Twitter / X</a>
+      <a href="https://github.com" class="social-link" target="_blank">🐙 GitHub</a>
+      <a href="https://youtube.com" class="social-link" target="_blank">▶️ YouTube</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-logo">Rajkumar<span>.</span>BK</div>
+      <div class="footer-copy" style="margin-top:0.4rem;">© 2025 Rajkumar BK · Tokyo, Japan 🇯🇵</div>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="#expertise">Expertise</a></li>
+      <li><a href="#certs">Certifications</a></li>
+      <li><a href="#blog">Blog</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div style="font-size:0.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;">
+      Built with ❤️ from Tokyo
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Theme Toggle
+  const toggle = document.getElementById('themeToggle');
+  toggle.addEventListener('click', () => {
+    const html = document.documentElement;
+    html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  });
+
+  // Scroll Reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Stagger siblings
+        const siblings = [...entry.target.parentElement.querySelectorAll('.reveal:not(.visible)')];
+        const idx = siblings.indexOf(entry.target);
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, Math.min(idx * 80, 400));
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Smooth nav active state
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 100) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--accent)' : '';
+    });
+  });
+</script>
+</body>
+</html>
